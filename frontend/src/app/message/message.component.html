@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+    <input type="text"
+           class="form-control"
+           name="message"
+           placeholder="Type message..."
+           id="send-message"
+           [(ngModel)]="message"
+    />
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="sendMessage()">
+      Send Message
+    </button>
+  </div>
+</div>
+
+<div class="row pt-5">
+  <h4>Received messages</h4>
+  <ol>
+    <li class="message" *ngFor="let message of receivedMessages">
+      {{message.body}}
+    </li>
+  </ol>
+
+</div>
