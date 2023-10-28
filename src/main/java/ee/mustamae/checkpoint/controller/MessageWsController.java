@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
 
 @Controller
-public class MessageController {
+public class MessageWsController {
 
   @MessageMapping("/checkpoint")
   @SendTo("/topic/checkpoint")
