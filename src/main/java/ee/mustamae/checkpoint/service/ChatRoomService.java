@@ -14,13 +14,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ChatRoomService {
 
-    private final ChatRoomRepository chatRoomRepository;
-    private final ChatRoomMapper chatRoomMapper;
+  private final ChatRoomRepository chatRoomRepository;
+  private final ChatRoomMapper chatRoomMapper;
 
-    public ChatRoomDto create(ChatRoomCreateDto chatRoomCreateDto) {
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setLink(UUID.randomUUID().toString());
-        chatRoom.setPassword(chatRoomCreateDto.getPassword());
-        return chatRoomMapper.fromEntityToDto(chatRoomRepository.save(chatRoom));
-    }
+  public ChatRoomDto create(ChatRoomCreateDto chatRoomCreateDto) {
+    ChatRoom chatRoom = new ChatRoom();
+    chatRoom.setLink(UUID.randomUUID().toString());
+    chatRoom.setPassword(chatRoomCreateDto.getPassword());
+    return chatRoomMapper.fromEntityToDto(chatRoomRepository.save(chatRoom));
+  }
 }

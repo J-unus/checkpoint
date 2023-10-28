@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:4209")
 public class ChatRoomController {
 
-    private final ChatRoomService chatRoomService;
+  private final ChatRoomService chatRoomService;
 
-    @PostMapping
-    public ChatRoomDto createChatRoom(@Valid @RequestBody ChatRoomCreateDto chatRoomCreateDto) {
-        return chatRoomService.create(chatRoomCreateDto);
-    }
+  @PostMapping
+  public ChatRoomDto createChatRoom(@Valid @RequestBody ChatRoomCreateDto chatRoomCreateDto) {
+    return chatRoomService.create(chatRoomCreateDto);
+  }
 }

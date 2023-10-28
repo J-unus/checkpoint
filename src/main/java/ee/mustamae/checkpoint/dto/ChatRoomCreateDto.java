@@ -10,5 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRoomCreateDto {
-    private String password;
+  private String password;
 }

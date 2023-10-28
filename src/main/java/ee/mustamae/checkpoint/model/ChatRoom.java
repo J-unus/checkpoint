@@ -15,9 +15,9 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class ChatRoom extends BaseModel {
 
-    @Column(nullable = false)
-    private String link;
+  @Column(nullable = false)
+  private String link;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false)
+  private String password;
 }
