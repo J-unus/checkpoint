@@ -19,7 +19,7 @@ public class ChatRoomService {
 
   public ChatRoomDto create(ChatRoomCreateDto chatRoomCreateDto) {
     ChatRoom chatRoom = new ChatRoom();
-    chatRoom.setLink(UUID.randomUUID().toString());
+    chatRoom.setUuid(UUID.randomUUID().toString());
     chatRoom.setPassword(chatRoomCreateDto.getPassword());
     return chatRoomMapper.fromEntityToDto(chatRoomRepository.save(chatRoom));
   }

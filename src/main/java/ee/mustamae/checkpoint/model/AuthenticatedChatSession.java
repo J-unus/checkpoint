@@ -6,18 +6,18 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "chat_room")
+@Table(name = "authenticated_chat_session")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class ChatRoom extends BaseModel {
+public class AuthenticatedChatSession extends BaseModel {
 
   @Column(nullable = false)
-  private String uuid;
+  private String chatRoomUuid;
 
   @Column(nullable = false)
-  private String password;
+  private String simpSessionId;
 }

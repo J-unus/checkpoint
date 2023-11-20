@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatRoomDto {
-    private String uuid;
+public class ChatRoomAuthorizeDto {
+  private String uuid;
+  private String password;
 }
