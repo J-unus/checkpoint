@@ -1,18 +1,15 @@
 package ee.mustamae.checkpoint.controller;
 
+import ee.mustamae.checkpoint.config.JwtTokenUtil;
 import ee.mustamae.checkpoint.dto.ChatRoomAuthorizeDto;
 import ee.mustamae.checkpoint.dto.ChatRoomCreateDto;
 import ee.mustamae.checkpoint.dto.ChatRoomDto;
 import ee.mustamae.checkpoint.service.ChatRoomService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,12 +29,13 @@ public class ChatRoomController {
   }
 
   @PostMapping("/authorize")
-  public void authorizeForChatRoom(@Valid @RequestBody ChatRoomAuthorizeDto chatRoomAuthorizeDto, HttpServletRequest request, HttpServletResponse response) {
+  public String authorizeForChatRoom(@Valid @RequestBody ChatRoomAuthorizeDto chatRoomAuthorizeDto) {
     UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(chatRoomAuthorizeDto.getUuid(), chatRoomAuthorizeDto.getPassword());
     Authentication authentication = authenticationManager.authenticate(token);
-    SecurityContext context = SecurityContextHolder.getContext();
-    context.setAuthentication(authentication);
-
-    System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+    if (authentication.isAuthenticated()) {
+      return JwtTokenUtil.generateToken(chatRoomAuthorizeDto.getUuid());
+    } else {
+      return null;
+    }
   }
 }

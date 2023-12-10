@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,12 +27,11 @@ public class ChatRoomAuthenticationProvider implements AuthenticationProvider {
     String chatRoomUuid = authentication.getPrincipal() + "";
     String password = authentication.getCredentials() + "";
 
-//    if (!chatRoomRepository.existsByUuidAndPassword(chatRoomUuid, password)) {
-//      throw new RuntimeException();
-//    }
+    if (!chatRoomRepository.existsByUuidAndPassword(chatRoomUuid, password)) {
+      return null;
+    }
 
-    List<GrantedAuthority> grantedAuths = new ArrayList<>();
-    grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+    List<GrantedAuthority> grantedAuths = new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
     return UsernamePasswordAuthenticationToken.authenticated(chatRoomUuid, null, grantedAuths);
   }
 
