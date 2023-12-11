@@ -1,6 +1,6 @@
 package ee.mustamae.checkpoint.interceptor;
 
-import ee.mustamae.checkpoint.excpetion.WsDestinationUuidNotValidException;
+import ee.mustamae.checkpoint.exception.WsDestinationUuidNotValidException;
 import ee.mustamae.checkpoint.util.JwtTokenUtil;
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;

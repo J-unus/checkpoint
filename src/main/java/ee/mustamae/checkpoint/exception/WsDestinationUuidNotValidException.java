@@ -1,4 +1,4 @@
-package ee.mustamae.checkpoint.excpetion;
+package ee.mustamae.checkpoint.exception;
 
 public class WsDestinationUuidNotValidException extends RuntimeException {
 
