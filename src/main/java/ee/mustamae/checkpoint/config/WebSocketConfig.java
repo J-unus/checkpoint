@@ -1,7 +1,6 @@
 package ee.mustamae.checkpoint.config;
 
 import ee.mustamae.checkpoint.interceptor.WebSocketInterceptor;
-import ee.mustamae.checkpoint.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -18,7 +17,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Order(Ordered.HIGHEST_PRECEDENCE + 99)
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-  private final ChatRoomRepository chatRoomRepository;
+  private final WebSocketInterceptor webSocketInterceptor;
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -35,6 +34,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void configureClientInboundChannel(ChannelRegistration registration) {
-    registration.interceptors(new WebSocketInterceptor(chatRoomRepository));
+    registration.interceptors(webSocketInterceptor);
   }
 }
