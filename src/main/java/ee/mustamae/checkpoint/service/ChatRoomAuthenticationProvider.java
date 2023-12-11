@@ -1,4 +1,4 @@
-package ee.mustamae.checkpoint.config;
+package ee.mustamae.checkpoint.service;
 
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package ee.mustamae.checkpoint.controller;
 
-import ee.mustamae.checkpoint.config.JwtTokenUtil;
+import ee.mustamae.checkpoint.util.JwtTokenUtil;
 import ee.mustamae.checkpoint.dto.ChatRoomAuthorizeDto;
 import ee.mustamae.checkpoint.dto.ChatRoomCreateDto;
 import ee.mustamae.checkpoint.dto.ChatRoomDto;

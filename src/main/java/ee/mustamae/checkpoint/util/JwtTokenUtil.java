@@ -1,4 +1,4 @@
-package ee.mustamae.checkpoint.config;
+package ee.mustamae.checkpoint.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

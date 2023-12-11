@@ -1,6 +1,6 @@
 package ee.mustamae.checkpoint.interceptor;
 
-import ee.mustamae.checkpoint.config.JwtTokenUtil;
+import ee.mustamae.checkpoint.util.JwtTokenUtil;
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
