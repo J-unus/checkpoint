@@ -6,7 +6,6 @@ import ee.mustamae.checkpoint.dto.ChatRoomDto;
 import ee.mustamae.checkpoint.mapper.ChatRoomMapper;
 import ee.mustamae.checkpoint.model.ChatRoom;
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
-import ee.mustamae.checkpoint.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +21,7 @@ public class ChatRoomService {
   private final ChatRoomRepository chatRoomRepository;
   private final ChatRoomMapper chatRoomMapper;
   private final AuthenticationManager authenticationManager;
+  private final JwtTokenService jwtTokenService;
 
   public ChatRoomDto create(ChatRoomCreateDto chatRoomCreateDto) {
     ChatRoom chatRoom = new ChatRoom();
@@ -34,7 +34,7 @@ public class ChatRoomService {
     UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(chatRoomAuthorizeDto.getUuid(), chatRoomAuthorizeDto.getPassword());
     Authentication authentication = authenticationManager.authenticate(token);
     if (authentication.isAuthenticated()) {
-      return JwtTokenUtil.generateToken(chatRoomAuthorizeDto.getUuid());
+      return jwtTokenService.generateToken(chatRoomAuthorizeDto.getUuid());
     } else {
       return null;
     }

@@ -25,7 +25,11 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+  private final static List<String> ALLOWED_METHODS = List.of("GET", "POST");
+  private final static List<String> ALLOWED_HEADERS = List.of("Authorization", "Cache-Control", "Content-Type");
+
   private final AuthenticationConfiguration authConfiguration;
+  private final SecurityProperties securityProperties;
 
   @Bean
   public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -35,9 +39,9 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOrigins(List.of("http://localhost:4209"));
-    config.setAllowedMethods(List.of("GET", "POST"));
-    config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+    config.setAllowedOrigins(securityProperties.getAllowedOrigins());
+    config.setAllowedMethods(ALLOWED_METHODS);
+    config.setAllowedHeaders(ALLOWED_HEADERS);
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return source;

@@ -10,6 +10,11 @@ spring:
     h2:
       console.enabled: true
 
+app:
+  security:
+    allowed-origins: http://localhost:4209
+    jwt-signature-secret-base64-key: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+
 logging:
   level:
     org:

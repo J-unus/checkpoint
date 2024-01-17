@@ -1,7 +1,7 @@
 package ee.mustamae.checkpoint.interceptor;
 
 import ee.mustamae.checkpoint.exception.WsDestinationUuidNotValidException;
-import ee.mustamae.checkpoint.util.JwtTokenUtil;
+import ee.mustamae.checkpoint.service.JwtTokenService;
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,7 @@ public class WebSocketInterceptor implements ChannelInterceptor {
   private static final int UUID_LENGTH = 36;
 
   private final ChatRoomRepository chatRoomRepository;
+  private final JwtTokenService jwtTokenService;
 
   @Override
   public Message<?> preSend(Message<?> message, MessageChannel channel) {
@@ -59,14 +60,14 @@ public class WebSocketInterceptor implements ChannelInterceptor {
     }
 
     String token = authorizationHeader.substring(7);
-    String chatRoomUuid = JwtTokenUtil.extractChatRoomUuid(token);
+    String chatRoomUuid = jwtTokenService.extractChatRoomUuid(token);
 
     if (chatRoomUuid == null || SecurityContextHolder.getContext().getAuthentication() != null) {
       return;
     }
 
     boolean existsByUuid = chatRoomRepository.existsByUuid(chatRoomUuid);
-    if (JwtTokenUtil.validateToken(token, existsByUuid)) {
+    if (jwtTokenService.validateToken(token, existsByUuid)) {
       UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(chatRoomUuid, null, new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))));
       SecurityContext context = SecurityContextHolder.createEmptyContext();
       context.setAuthentication(authentication);

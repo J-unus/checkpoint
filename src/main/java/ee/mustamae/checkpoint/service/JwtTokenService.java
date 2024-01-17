@@ -1,11 +1,13 @@
-package ee.mustamae.checkpoint.util;
+package ee.mustamae.checkpoint.service;
 
+import ee.mustamae.checkpoint.config.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.experimental.UtilityClass;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
@@ -13,9 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@UtilityClass
-public class JwtTokenUtil {
-  public final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+@Service
+@RequiredArgsConstructor
+public class JwtTokenService {
+  private final SecurityProperties securityProperties;
+
   public String generateToken(String userName) {
     Map<String, Object> claims = new HashMap<>();
     return createToken(claims, userName);
@@ -31,7 +35,7 @@ public class JwtTokenUtil {
   }
 
   private Key getSignKey() {
-    byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+    byte[] keyBytes = Decoders.BASE64.decode(securityProperties.getJwtSignatureSecretBase64Key());
     return Keys.hmacShaKeyFor(keyBytes);
   }
 

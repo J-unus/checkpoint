@@ -18,6 +18,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   private final WebSocketInterceptor webSocketInterceptor;
+  private final SecurityProperties securityProperties;
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -29,7 +30,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry
       .addEndpoint("/ws")
-      .setAllowedOrigins("http://localhost:4209");
+      .setAllowedOrigins(securityProperties.getAllowedOrigins().toArray(new String[0]));
   }
 
   @Override
