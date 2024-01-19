@@ -14,4 +14,5 @@ import java.util.List;
 public class SecurityProperties {
   private List<String> allowedOrigins;
   private String jwtSignatureSecretBase64Key;
+  private long jwtExpirationTimeSeconds;
 }

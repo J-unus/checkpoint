@@ -18,6 +18,8 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtTokenService {
+  private static final long ONE_MINUTE_IN_MS = 60 * 1000;
+
   private final SecurityProperties securityProperties;
 
   public String generateToken(String userName) {
@@ -30,7 +32,7 @@ public class JwtTokenService {
       .claims(claims)
       .subject(userName)
       .issuedAt(new Date(System.currentTimeMillis()))
-      .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 300))
+      .expiration(new Date(System.currentTimeMillis() + securityProperties.getJwtExpirationTimeSeconds() * ONE_MINUTE_IN_MS))
       .signWith(getSignKey(), SignatureAlgorithm.HS256).compact(); // TODO replace deprecated
   }
 
