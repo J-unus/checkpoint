@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -22,11 +23,12 @@ public class ChatRoomService {
   private final ChatRoomMapper chatRoomMapper;
   private final AuthenticationManager authenticationManager;
   private final JwtTokenService jwtTokenService;
+  private final PasswordEncoder delegatingPasswordEncoder;
 
   public ChatRoomDto create(ChatRoomCreateDto chatRoomCreateDto) {
     ChatRoom chatRoom = new ChatRoom();
     chatRoom.setUuid(UUID.randomUUID().toString());
-    chatRoom.setPassword(chatRoomCreateDto.getPassword());
+    chatRoom.setPassword(delegatingPasswordEncoder.encode(chatRoomCreateDto.getPassword()));
     return chatRoomMapper.fromEntityToDto(chatRoomRepository.save(chatRoom));
   }
 
