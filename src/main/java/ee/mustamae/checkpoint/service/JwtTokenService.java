@@ -3,13 +3,12 @@ package ee.mustamae.checkpoint.service;
 import ee.mustamae.checkpoint.config.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,11 +31,12 @@ public class JwtTokenService {
       .claims(claims)
       .subject(userName)
       .issuedAt(new Date(System.currentTimeMillis()))
-      .expiration(new Date(System.currentTimeMillis() + securityProperties.getJwtExpirationTimeSeconds() * ONE_MINUTE_IN_MS))
-      .signWith(getSignKey(), SignatureAlgorithm.HS256).compact(); // TODO replace deprecated
+      .expiration(new Date(System.currentTimeMillis() + securityProperties.getJwtExpirationTimeMinutes() * ONE_MINUTE_IN_MS))
+      .signWith(getSignKey())
+      .compact();
   }
 
-  private Key getSignKey() {
+  private SecretKey getSignKey() {
     byte[] keyBytes = Decoders.BASE64.decode(securityProperties.getJwtSignatureSecretBase64Key());
     return Keys.hmacShaKeyFor(keyBytes);
   }
@@ -57,9 +57,9 @@ public class JwtTokenService {
   private Claims extractAllClaims(String token) {
     return Jwts
       .parser()
-      .setSigningKey(getSignKey())
+      .verifyWith(getSignKey())
       .build()
-      .parseClaimsJws(token)
+      .parseSignedClaims(token)
       .getPayload();
   }
 

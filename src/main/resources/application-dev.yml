@@ -13,8 +13,8 @@ spring:
 app:
   security:
     allowed-origins: http://localhost:4209
-    jwt-expiration-time-seconds: 43200  # 12 hours in seconds
-    jwt-signature-secret-base64-key: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+    jwt-expiration-time-minutes: 720  # 12 hours in minutes
+    jwt-signature-secret-base64-key: dGhpc2lzZW5jb2RlZHNjb29ieWRvb2J5ZG9vb29vb29vdGhpc2lzZW5jb2RlZA==
 
 logging:
   level:
