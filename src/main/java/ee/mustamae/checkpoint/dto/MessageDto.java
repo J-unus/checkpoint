@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class MessageDto {
+  private String id;
   private String body;
 }
