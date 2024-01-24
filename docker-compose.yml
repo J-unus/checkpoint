@@ -1,1 +1,17 @@
 version: '1'
+services:
+  checkpoint_db:
+    container_name: checkpoint_db
+    image: mongo:6
+    environment:
+      TZ: Europe/Tallinn
+      MONGO_INITDB_DATABASE: checkpoint
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data_container:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb_data_container:

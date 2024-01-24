@@ -1,12 +1,10 @@
 package ee.mustamae.checkpoint.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "chat_room")
+@Document(value = "chatRooms")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +13,8 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class ChatRoom extends BaseModel {
 
-  @Column(nullable = false)
+  @Indexed
   private String uuid;
 
-  @Column(nullable = false)
   private String password;
 }

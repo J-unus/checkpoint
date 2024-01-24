@@ -1,13 +1,8 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:checkpoint
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-  jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
-  h2:
-    console.enabled: true
+  data:
+    mongodb:
+      uri: mongodb://admin:password@localhost:27017
+      database: checkpoint
 
 app:
   security:

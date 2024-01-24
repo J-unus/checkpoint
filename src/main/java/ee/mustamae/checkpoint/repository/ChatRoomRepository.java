@@ -1,11 +1,11 @@
 package ee.mustamae.checkpoint.repository;
 
 import ee.mustamae.checkpoint.model.ChatRoom;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
+public interface ChatRoomRepository extends MongoRepository<ChatRoom, Long> {
 
   Optional<ChatRoom> findByUuid(String uuid);
 

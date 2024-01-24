@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @EnableWebSecurity
@@ -56,9 +55,8 @@ public class SecurityConfig {
   @Bean
   @Order(2)
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
+    return http
       .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-        .requestMatchers(toH2Console()).permitAll()
         .requestMatchers(antMatcher("/**")).anonymous()
       )
       .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -66,15 +64,14 @@ public class SecurityConfig {
       .headers(headers -> headers
         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
         .httpStrictTransportSecurity(httpStrictTransport -> httpStrictTransport.requestMatcher(AnyRequestMatcher.INSTANCE))
-      );
-    return http.build();
+      )
+      .build();
   }
 
   @Bean
   public PasswordEncoder delegatingPasswordEncoder() {
     Map<String, PasswordEncoder> encoders = new HashMap<>();
     encoders.put("bcrypt", new BCryptPasswordEncoder());
-
     return new DelegatingPasswordEncoder("bcrypt", encoders);
   }
 }

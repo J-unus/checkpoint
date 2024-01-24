@@ -1,5 +1,6 @@
 package ee.mustamae.checkpoint.interceptor;
 
+import ee.mustamae.checkpoint.exception.WsDestinationUuidMissingException;
 import ee.mustamae.checkpoint.exception.WsDestinationUuidNotValidException;
 import ee.mustamae.checkpoint.service.JwtTokenService;
 import ee.mustamae.checkpoint.repository.ChatRoomRepository;
@@ -82,6 +83,9 @@ public class WebSocketInterceptor implements ChannelInterceptor {
 
     if (UUID_LENGTH != destinationUuid.length() || !destinationUuid.equals(authenticatedUuid)) {
       throw new WsDestinationUuidNotValidException("Destination chat room uuid does not match with authenticated uuid");
+    }
+    if (!chatRoomRepository.existsByUuid(authenticatedUuid)) {
+      throw new WsDestinationUuidMissingException("Chat room with uuid does not exist");
     }
   }
 
