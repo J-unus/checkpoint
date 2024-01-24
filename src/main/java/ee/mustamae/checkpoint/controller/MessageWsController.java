@@ -6,12 +6,14 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import java.time.Instant;
+
 @Controller
 public class MessageWsController {
 
   @MessageMapping("/checkpoint/{chatRoomUuid}")
   @SendTo("/topic/checkpoint/{chatRoomUuid}")
   public MessageDto checkpoint(String message, @Header String userMessageId) {
-    return new MessageDto(userMessageId, message);
+    return new MessageDto(userMessageId, Instant.now(), message);
   }
 }
