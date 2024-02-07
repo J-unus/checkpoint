@@ -1,5 +1,16 @@
 version: '1'
 services:
+  checkpoint_server:
+    container_name: checkpoint_server
+    build:
+      context: .
+    ports:
+      - 8089:8089
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - checkpoint_db
+    profiles: [prod]
   checkpoint_db:
     container_name: checkpoint_db
     image: mongo:6

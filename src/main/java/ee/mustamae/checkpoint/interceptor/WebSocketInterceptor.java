@@ -89,7 +89,6 @@ public class WebSocketInterceptor implements ChannelInterceptor {
     }
   }
 
-
   private void invalidateSession(StompHeaderAccessor accessor) {
     SecurityContext context = SecurityContextHolder.createEmptyContext();
     context.setAuthentication(null);
